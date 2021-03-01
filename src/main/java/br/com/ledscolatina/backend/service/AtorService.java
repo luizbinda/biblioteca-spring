@@ -1,5 +1,6 @@
 package br.com.ledscolatina.backend.service;
 
+import br.com.ledscolatina.backend.except.custom.AtorNotFoundException;
 import br.com.ledscolatina.backend.except.custom.CadernoNotFoundException;
 import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
@@ -35,7 +36,7 @@ public class AtorService {
     public AtorIndexDTO show(Long id) {
         return atorRepository.findById(id)
                 .map(record -> modelMapper.map(record, AtorIndexDTO.class))
-                .orElseThrow(() -> new CadernoNotFoundException(id));
+                .orElseThrow(() -> new AtorNotFoundException(id));
     }
 
     public AtorIndexDTO update(Ator ator) {
@@ -44,7 +45,7 @@ public class AtorService {
                     record.setNome(ator.getNome());
                     record.setUpdatedAt(ator.getUpdatedAt());
                     return modelMapper.map(atorRepository.save(record), AtorIndexDTO.class);
-                }).orElseThrow(() -> new CadernoNotFoundException(ator.getId()));
+                }).orElseThrow(() -> new AtorNotFoundException(ator.getId()));
     }
 
     public void delete(Long id) {
@@ -52,7 +53,7 @@ public class AtorService {
             atorRepository.deleteById(id);
         }
         else {
-            throw new CadernoNotFoundException(id);
+            throw new AtorNotFoundException(id);
         }
     }
 

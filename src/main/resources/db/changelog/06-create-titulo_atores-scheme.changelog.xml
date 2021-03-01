@@ -26,7 +26,7 @@
         />
         <addForeignKeyConstraint
                 constraintName="titulo_atores_ator_fk"
-                baseTableName="titulo_atores" baseColumnNames="titulo_id"
+                baseTableName="titulo_atores" baseColumnNames="ator_id"
                 referencedTableName="atores" referencedColumnNames="id"
         />
     </changeSet>

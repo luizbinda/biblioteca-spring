@@ -8,16 +8,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-@Entity(name="atores")
+@Entity(name="diretores")
 @Getter @Setter
-public class Ator {
+public class Diretor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull(message = "O Nome do Ator é obrigatorio.")
-    @Size(min = 1, max = 255, message = "O Nome do Ator deve conter entre 1 e 255 caracteres.")
+    @NotNull(message = "O Nome do Diretor é obrigatorio.")
+    @Size(min = 1, max = 255, message = "O Nome do Diretor deve conter entre 1 e 255 caracteres.")
     private String nome;
 
     @Column(name = "created_at")

@@ -1,8 +1,6 @@
 package br.com.ledscolatina.backend.except;
 
-import br.com.ledscolatina.backend.except.custom.CadernoNotFoundException;
-import br.com.ledscolatina.backend.except.custom.NotaNotFoundException;
-import br.com.ledscolatina.backend.except.custom.UsuarioNotFoundException;
+import br.com.ledscolatina.backend.except.custom.*;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,6 +53,53 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
                 request
         );
     }
+
+    @ExceptionHandler(value = { AtorNotFoundException.class })
+    protected ResponseEntity<Object> handleAtorNotFoundException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Ator inexistente no sistema.",
+                        "ator"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { DiretorNotFoundException.class })
+    protected ResponseEntity<Object> handleDiretorNotFoundException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Diretor inexistente no sistema.",
+                        "diretor"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { TituloNotFoundException.class })
+    protected ResponseEntity<Object> handleTituloNotFoundException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Titulo inexistente no sistema.",
+                        "titulo"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+
 
     @ExceptionHandler(value = { NotaNotFoundException.class })
     protected ResponseEntity<Object> handleNotaNotFoundException(RuntimeException ex, WebRequest request) {

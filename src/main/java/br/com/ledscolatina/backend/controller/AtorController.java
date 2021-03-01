@@ -33,9 +33,9 @@ public class AtorController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable Long id,
-                                    @DTO(AtorIndexDTO.class) Ator aotr) {
-        aotr.setId(id);
-        return ResponseEntity.ok(atorService.update(aotr));
+                                    @DTO(AtorIndexDTO.class) Ator ator) {
+        ator.setId(id);
+        return ResponseEntity.ok(atorService.update(ator));
     }
 
     @DeleteMapping("{id}")

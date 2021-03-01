@@ -15,10 +15,10 @@
             <column name="nome" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="valor" type="int">
+            <column name="valor" type="float">
                 <constraints nullable="false"/>
             </column>
-            <column name="prazo_devolucao" type="TIMESTAMP">
+            <column name="prazo_devolucao" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>
