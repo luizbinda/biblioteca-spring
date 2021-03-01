@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="05" author="luiz">
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="itens"/>
+            </not>
+        </preConditions>
+        <createTable tableName="itens">
+            <column name="id" type="int">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="numSerie" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_aquisicao" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="titulo_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="locacao_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="items_titulo_fk"
+                baseTableName="itens" baseColumnNames="titulo_id"
+                referencedTableName="titulos" referencedColumnNames="id"
+        />
+    </changeSet>
+</databaseChangeLog>

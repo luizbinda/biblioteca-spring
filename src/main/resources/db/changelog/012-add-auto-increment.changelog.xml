@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="12" author="luiz">
+        <addAutoIncrement tableName="atores" columnName="id"/>
+        <addAutoIncrement tableName="diretores" columnName="id"/>
+        <addAutoIncrement tableName="classes" columnName="id"/>
+        <addAutoIncrement tableName="titulos" columnName="id"/>
+        <addAutoIncrement tableName="itens" columnName="id"/>
+        <addAutoIncrement tableName="titulo_atores" columnName="id"/>
+        <addAutoIncrement tableName="clientes" columnName="id"/>
+        <addAutoIncrement tableName="locacoes" columnName="id"/>
+    </changeSet>
+</databaseChangeLog>
+

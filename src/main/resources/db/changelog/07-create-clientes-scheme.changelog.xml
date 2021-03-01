@@ -1,0 +1,46 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet id="07" author="luiz">
+        <preConditions onFail="CONTINUE">
+            <not>
+                <tableExists tableName="clientes"/>
+            </not>
+        </preConditions>
+        <createTable tableName="clientes">
+            <column name="id" type="int">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="nome" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sexo" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_nascimento" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="endereco" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telefone" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cpf" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cliente_id" type="int">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="ativo" type="boolean" defaultValue="true">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                constraintName="cliente_cliente_fk"
+                baseTableName="clientes" baseColumnNames="cliente_id"
+                referencedTableName="clientes" referencedColumnNames="id"
+        />
+    </changeSet>
+</databaseChangeLog>
