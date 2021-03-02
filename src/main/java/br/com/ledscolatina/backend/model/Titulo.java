@@ -43,12 +43,17 @@ public class Titulo {
     @JoinColumn(name = "classe_id")
     private Classe classe;
 
-    @Transient
+    @ManyToMany()
+    @JoinTable
+            (
+                name = "titulo_atores",
+                joinColumns = {
+                        @JoinColumn(name = "titulo_id")
+                },
+                inverseJoinColumns = {
+                        @JoinColumn(name = "ator_id")}
+            )
     private List<Ator> atores;
-
-    @Transient
-    @OneToMany(mappedBy = "titulo_id")
-    private List<AtorTitulo> atores_titulo;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

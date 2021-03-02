@@ -29,17 +29,15 @@ public class TituloService {
     private ModelMapper modelMapper;
 
     public TituloDTO create(Titulo titulo) {
-        TituloDTO response =  modelMapper.map(tituloRepository.save(titulo), TituloIndexDTO.class);
+        TituloIndexDTO response =  modelMapper.map(tituloRepository.save(titulo), TituloIndexDTO.class);
         List<AtorTitulo> atores = new ArrayList<>();
-        for (int i=0; i < titulo.getAtores().size(); i++) {
+        titulo.getAtores().forEach( ator -> {
             AtorTitulo atorTitulo = new AtorTitulo();
-            atorTitulo.setCreatedAt(LocalDateTime.now());
-            atorTitulo.setUpdatedAt(LocalDateTime.now());
-            atorTitulo.setAtor(titulo.getAtores().get(i));
-            titulo.setId(((TituloIndexDTO) response).getId());
+            atorTitulo.setAtor(ator);
+            titulo.setId(response.getId());
             atorTitulo.setTitulo(titulo);
             atores.add(atorTitulo);
-        }
+        });
         ator_tituloRepository.saveAll(atores);
         return response;
 
