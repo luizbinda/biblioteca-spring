@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class AtorNotFoundException extends RuntimeException {
 
-    private Long idBuscado;
+    private final Long idBuscado;
 
     public AtorNotFoundException(Long idBuscado) {
         this.idBuscado = idBuscado;

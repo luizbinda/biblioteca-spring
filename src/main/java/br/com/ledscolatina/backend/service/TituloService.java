@@ -4,14 +4,12 @@ import br.com.ledscolatina.backend.except.custom.TituloNotFoundException;
 import br.com.ledscolatina.backend.model.AtorTitulo;
 import br.com.ledscolatina.backend.model.Titulo;
 import br.com.ledscolatina.backend.model.dto.Titulo.TituloDTO;
-import br.com.ledscolatina.backend.model.dto.Titulo.TituloIndexDTO;
 import br.com.ledscolatina.backend.repository.AtorTituloRepository;
 import br.com.ledscolatina.backend.repository.TituloRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +27,7 @@ public class TituloService {
     private ModelMapper modelMapper;
 
     public TituloDTO create(Titulo titulo) {
-        TituloIndexDTO response =  modelMapper.map(tituloRepository.save(titulo), TituloIndexDTO.class);
+        TituloDTO response =  modelMapper.map(tituloRepository.save(titulo), TituloDTO.class);
         List<AtorTitulo> atores = new ArrayList<>();
         titulo.getAtores().forEach( ator -> {
             AtorTitulo atorTitulo = new AtorTitulo();
@@ -43,24 +41,30 @@ public class TituloService {
 
     }
 
-    public List<TituloIndexDTO> index() {
+    public List<TituloDTO> index() {
         return tituloRepository.findAll().stream()
-                .map(titulo -> modelMapper.map(titulo, TituloIndexDTO.class))
+                .map(titulo -> modelMapper.map(titulo, TituloDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public TituloIndexDTO show(Long id) {
+    public TituloDTO show(Long id) {
         return tituloRepository.findById(id)
-                .map(record -> modelMapper.map(record, TituloIndexDTO.class))
+                .map(record -> modelMapper.map(record, TituloDTO.class))
                 .orElseThrow(() -> new TituloNotFoundException(id));
     }
 
-    public TituloIndexDTO update(Titulo titulo) {
+    public TituloDTO update(Titulo titulo) {
         return tituloRepository.findById(titulo.getId())
                 .map(record -> {
                     record.setNome(titulo.getNome());
+                    record.setDiretor(titulo.getDiretor());
+                    record.setAtores(titulo.getAtores());
+                    record.setAno(titulo.getAno());
+                    record.setSinopse(titulo.getSinopse());
+                    record.setCategoria(titulo.getCategoria());
+                    record.setClasse(titulo.getClasse());
                     record.setUpdatedAt(titulo.getUpdatedAt());
-                    return modelMapper.map(tituloRepository.save(record), TituloIndexDTO.class);
+                    return modelMapper.map(tituloRepository.save(record), TituloDTO.class);
                 }).orElseThrow(() -> new TituloNotFoundException(titulo.getId()));
     }
 

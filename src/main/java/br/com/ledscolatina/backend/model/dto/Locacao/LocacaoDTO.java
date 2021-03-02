@@ -1,5 +1,7 @@
-package br.com.ledscolatina.backend.model.dto.Titulo;
+package br.com.ledscolatina.backend.model.dto.Locacao;
 
+import br.com.ledscolatina.backend.model.Cliente;
+import br.com.ledscolatina.backend.model.Item;
 import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
 import br.com.ledscolatina.backend.model.dto.AtorTituloDTO;
 import br.com.ledscolatina.backend.model.dto.Diretor.DiretorDTO;
@@ -7,22 +9,24 @@ import br.com.ledscolatina.backend.model.dto.classe.ClasseDTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class TituloDTO {
+public class LocacaoDTO {
     private Long id;
-    private String nome;
-    private String sinopse;
-    private String categoria;
-    private Date ano;
-    private DiretorDTO diretor;
-    private ClasseDTO classe;
-    private List<AtorDTO> atores;
-    private List<AtorTituloDTO> atores_titulo;
+    private Double valor;
+    private Double multa;
+    private Item item;
+    private Cliente cliente;
+    private LocalDateTime data_locacao;
+    private LocalDateTime data_devolucao_prevista;
+    private LocalDateTime data_devolucao_efetiva;
     private final LocalDateTime createdAt = LocalDateTime.now();
     private final LocalDateTime updatedAt = LocalDateTime.now();
 }

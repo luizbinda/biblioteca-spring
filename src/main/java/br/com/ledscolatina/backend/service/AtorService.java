@@ -1,10 +1,8 @@
 package br.com.ledscolatina.backend.service;
 
 import br.com.ledscolatina.backend.except.custom.AtorNotFoundException;
-import br.com.ledscolatina.backend.except.custom.CadernoNotFoundException;
 import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
-import br.com.ledscolatina.backend.model.dto.Ator.AtorIndexDTO;
 import br.com.ledscolatina.backend.repository.AtorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,24 +25,24 @@ public class AtorService {
         return modelMapper.map(atorRepository.save(ator), AtorDTO.class);
     }
 
-    public List<AtorIndexDTO> index() {
+    public List<AtorDTO> index() {
         return atorRepository.findAll().stream()
-                .map(ator -> modelMapper.map(ator, AtorIndexDTO.class))
+                .map(ator -> modelMapper.map(ator, AtorDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public AtorIndexDTO show(Long id) {
+    public AtorDTO show(Long id) {
         return atorRepository.findById(id)
-                .map(record -> modelMapper.map(record, AtorIndexDTO.class))
+                .map(record -> modelMapper.map(record, AtorDTO.class))
                 .orElseThrow(() -> new AtorNotFoundException(id));
     }
 
-    public AtorIndexDTO update(Ator ator) {
+    public AtorDTO update(Ator ator) {
         return atorRepository.findById(ator.getId())
                 .map(record -> {
                     record.setNome(ator.getNome());
                     record.setUpdatedAt(ator.getUpdatedAt());
-                    return modelMapper.map(atorRepository.save(record), AtorIndexDTO.class);
+                    return modelMapper.map(atorRepository.save(record), AtorDTO.class);
                 }).orElseThrow(() -> new AtorNotFoundException(ator.getId()));
     }
 

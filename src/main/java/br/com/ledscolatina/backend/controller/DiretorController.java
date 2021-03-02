@@ -1,8 +1,6 @@
 package br.com.ledscolatina.backend.controller;
 import br.com.ledscolatina.backend.model.Diretor;
 import br.com.ledscolatina.backend.model.dto.Diretor.DiretorDTO;
-import br.com.ledscolatina.backend.model.dto.Diretor.DiretorIndexDTO;
-import br.com.ledscolatina.backend.service.DiretorService;
 import br.com.ledscolatina.backend.service.DiretorService;
 import br.com.ledscolatina.backend.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,7 @@ public class DiretorController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable Long id,
-                                    @DTO(DiretorIndexDTO.class) Diretor ator) {
+                                    @DTO(DiretorDTO.class) Diretor ator) {
         ator.setId(id);
         return ResponseEntity.ok(diretorService.update(ator));
     }

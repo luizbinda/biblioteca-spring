@@ -3,7 +3,6 @@ package br.com.ledscolatina.backend.service;
 import br.com.ledscolatina.backend.except.custom.ClasseNotFoundException;
 import br.com.ledscolatina.backend.model.Classe;
 import br.com.ledscolatina.backend.model.dto.classe.ClasseDTO;
-import br.com.ledscolatina.backend.model.dto.classe.ClasseIndexDTO;
 import br.com.ledscolatina.backend.repository.ClasseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +24,26 @@ public class ClasseService {
         return modelMapper.map(classeRepository.save(classe), ClasseDTO.class);
     }
 
-    public List<ClasseIndexDTO> index() {
+    public List<ClasseDTO> index() {
         return classeRepository.findAll().stream()
-                .map(classe -> modelMapper.map(classe, ClasseIndexDTO.class))
+                .map(classe -> modelMapper.map(classe, ClasseDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public ClasseIndexDTO show(Long id) {
+    public ClasseDTO show(Long id) {
         return classeRepository.findById(id)
-                .map(record -> modelMapper.map(record, ClasseIndexDTO.class))
+                .map(record -> modelMapper.map(record, ClasseDTO.class))
                 .orElseThrow(() -> new ClasseNotFoundException(id));
     }
 
-    public ClasseIndexDTO update(Classe classe) {
+    public ClasseDTO update(Classe classe) {
         return classeRepository.findById(classe.getId())
                 .map(record -> {
                     record.setNome(classe.getNome());
+                    record.setValor(classe.getValor());
+                    record.setPrazo_devolucao(classe.getPrazo_devolucao());
                     record.setUpdatedAt(classe.getUpdatedAt());
-                    return modelMapper.map(classeRepository.save(record), ClasseIndexDTO.class);
+                    return modelMapper.map(classeRepository.save(record), ClasseDTO.class);
                 }).orElseThrow(() -> new ClasseNotFoundException(classe.getId()));
     }
 

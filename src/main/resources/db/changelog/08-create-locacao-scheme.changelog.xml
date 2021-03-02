@@ -19,7 +19,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="data_devolucao_efetiva" type="TIMESTAMP">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="valor" type="float">
                 <constraints nullable="false"/>

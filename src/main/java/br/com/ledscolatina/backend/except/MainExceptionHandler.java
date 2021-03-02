@@ -39,21 +39,6 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = { CadernoNotFoundException.class })
-    protected ResponseEntity<Object> handleCadernoNotFoundException(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(
-                ex,
-                new ErrorResponseBody(
-                        400,
-                        "Caderno inexistente no sistema.",
-                        "caderno"
-                ),
-                new HttpHeaders(),
-                HttpStatus.BAD_REQUEST,
-                request
-        );
-    }
-
     @ExceptionHandler(value = { AtorNotFoundException.class })
     protected ResponseEntity<Object> handleAtorNotFoundException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(
@@ -99,16 +84,14 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-
-
-    @ExceptionHandler(value = { NotaNotFoundException.class })
-    protected ResponseEntity<Object> handleNotaNotFoundException(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = { ClasseNotFoundException.class })
+    protected ResponseEntity<Object> handleClasseNotFoundException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(
                 ex,
                 new ErrorResponseBody(
                         400,
-                        "Nota inexistente no sistema.",
-                        "nota"
+                        "Classe inexistente no sistema.",
+                        "classe"
                 ),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,
@@ -116,19 +99,80 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
         );
     }
 
-    @ExceptionHandler(value = { UsuarioNotFoundException.class })
-    protected ResponseEntity<Object> handleUsuarioNotFoundException(RuntimeException ex, WebRequest request) {
+    @ExceptionHandler(value = { ItemNotFoundException.class })
+    protected ResponseEntity<Object> handleItemNotFoundException(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(
                 ex,
                 new ErrorResponseBody(
                         400,
-                        "Usuário inexistente no sistema.",
-                        "usuario"
+                        "Item inexistente no sistema.",
+                        "item"
                 ),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,
                 request
         );
     }
+
+    @ExceptionHandler(value = { ClienteNotFoundException.class })
+    protected ResponseEntity<Object> handleClienteNotFoundException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Cliente inexistente no sistema.",
+                        "cliente"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { LocacaoNotFoundException.class })
+    protected ResponseEntity<Object> handleLocacaoNotFoundException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Locacao inexistente no sistema.",
+                        "locacao"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { ClienteNotActiveException.class })
+    protected ResponseEntity<Object> handleClienteNotActiveException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Cliente inativo no sistema.",
+                        "Cliente"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { ItemLocadoException.class })
+    protected ResponseEntity<Object> handleItemLocadoException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        ex.getMessage(),
+                        "Cliente"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
 
 }

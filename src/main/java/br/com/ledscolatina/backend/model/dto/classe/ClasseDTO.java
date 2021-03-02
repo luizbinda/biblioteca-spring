@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class ClasseDTO {
+    private Long id;
     private String nome;
     private Double valor;
     private Integer prazo_devolucao;

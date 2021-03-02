@@ -1,7 +1,6 @@
 package br.com.ledscolatina.backend.controller;
 import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
-import br.com.ledscolatina.backend.model.dto.Ator.AtorIndexDTO;
 import br.com.ledscolatina.backend.service.AtorService;
 import br.com.ledscolatina.backend.util.DTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class AtorController {
 
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable Long id,
-                                    @DTO(AtorIndexDTO.class) Ator ator) {
+                                    @DTO(AtorDTO.class) Ator ator) {
         ator.setId(id);
         return ResponseEntity.ok(atorService.update(ator));
     }

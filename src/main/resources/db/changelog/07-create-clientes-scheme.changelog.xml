@@ -22,16 +22,16 @@
                 <constraints nullable="false"/>
             </column>
             <column name="endereco" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="telefone" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="cpf" type="varchar(255)">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
             <column name="cliente_id" type="int">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="true" unique="true"/>
             </column>
             <column name="ativo" type="boolean" defaultValue="true">
                 <constraints nullable="false" />

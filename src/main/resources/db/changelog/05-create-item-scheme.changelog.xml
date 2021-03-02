@@ -12,7 +12,7 @@
             <column name="id" type="int">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="numSerie" type="varchar(255)">
+            <column name="num_serie" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="tipo" type="varchar(255)">
@@ -25,7 +25,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="locacao_id" type="int">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
         <addForeignKeyConstraint
