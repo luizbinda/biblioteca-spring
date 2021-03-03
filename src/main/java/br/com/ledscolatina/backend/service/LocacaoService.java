@@ -43,16 +43,21 @@ public class LocacaoService {
 
         Item item = itemRepository.findById(locacao.getItem().getId()).get();
         if (null != item.getLocacao()) {
-            Locacao locacaoItem = locacaoRepository.findById(item.getLocacao().getId()).get();
-            String message = "Este Item já está Locado e está previsto para devolução" +
-                    locacaoItem.getData_devolucao_prevista().getDayOfMonth() + "de" +
-                    locacaoItem.getData_devolucao_prevista().getMonth();
-            throw new ItemLocadoException(message);
+            item.getLocacao().forEach( locacaoItem -> {
+                if ( null == locacaoItem.getData_devolucao_efetiva() ) {
+                    String message = "Este Item já está Locado e está previsto para devolução " +
+                            locacaoItem.getData_devolucao_prevista().getDayOfMonth() + " de " +
+                            getMonthTranslated(locacaoItem.getData_devolucao_prevista().getMonthValue());
+                    throw new ItemLocadoException(message);
+                }
+            });
         }
 
         locacao.setData_locacao(LocalDateTime.now());
         locacao = modelMapper.map(locacaoRepository.save(locacao), Locacao.class);
-        item.setLocacao(locacao);
+        List<Locacao> locacoesItem = item.getLocacao();
+        locacoesItem.add(locacao);
+        item.setLocacao(locacoesItem);
         itemRepository.save(item);
         return modelMapper.map(locacao, LocacaoDTO.class);
     }
@@ -88,6 +93,34 @@ public class LocacaoService {
         }
         else {
             throw new LocacaoNotFoundException(id);
+        }
+    }
+
+    private String getMonthTranslated(Integer mes) {
+        switch(mes) {
+            case 1:
+                return "Janeiro";
+            case 2:
+                return "Fevereiro";
+            case 3:
+                return "Março";
+            case 4:
+                return "Abril";
+            case 5:
+                return "Maio";
+            case 6:
+                return "Junho";
+            case 7:
+                return "Julho";
+            case 8:
+                return "Agosto";
+            case 9:
+                return "Setembro";
+            case 10:
+                return "Outubro";
+            case 11:
+                return "Novembro";
+            default: return "Dezembro";
         }
     }
 

@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name="itens")
 @Getter @Setter
@@ -26,9 +27,8 @@ public class Item {
     @JoinColumn(name="titulo_id")
     private Titulo titulo;
 
-    @ManyToOne
-    @JoinColumn(name="locacao_id")
-    private Locacao locacao;
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    private List<Locacao> locacao;
 
     @NotNull(message = "A Data Aquisicao do Item é obrigatorio.")
     private Date data_aquisicao;
@@ -38,9 +38,8 @@ public class Item {
     private String tipo;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
+    private LocalDateTime updatedAt = LocalDateTime.now();
 }

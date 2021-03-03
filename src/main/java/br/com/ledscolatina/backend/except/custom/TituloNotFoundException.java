@@ -5,9 +5,6 @@ import lombok.Getter;
 @Getter
 public class TituloNotFoundException extends RuntimeException {
 
-    private final Long idBuscado;
-
-    public TituloNotFoundException(Long idBuscado) {
-        this.idBuscado = idBuscado;
+    public TituloNotFoundException() {
     }
 }

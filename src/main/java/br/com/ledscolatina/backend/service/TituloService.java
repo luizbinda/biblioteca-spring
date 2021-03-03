@@ -1,6 +1,7 @@
 package br.com.ledscolatina.backend.service;
 
 import br.com.ledscolatina.backend.except.custom.TituloNotFoundException;
+import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.AtorTitulo;
 import br.com.ledscolatina.backend.model.Titulo;
 import br.com.ledscolatina.backend.model.dto.Titulo.TituloDTO;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,18 +29,9 @@ public class TituloService {
     private ModelMapper modelMapper;
 
     public TituloDTO create(Titulo titulo) {
-        TituloDTO response =  modelMapper.map(tituloRepository.save(titulo), TituloDTO.class);
-        List<AtorTitulo> atores = new ArrayList<>();
-        titulo.getAtores().forEach( ator -> {
-            AtorTitulo atorTitulo = new AtorTitulo();
-            atorTitulo.setAtor(ator);
-            titulo.setId(response.getId());
-            atorTitulo.setTitulo(titulo);
-            atores.add(atorTitulo);
-        });
-        ator_tituloRepository.saveAll(atores);
-        return response;
-
+        titulo.setCreatedAt(LocalDateTime.now());
+        titulo.setUpdatedAt(LocalDateTime.now());
+        return  modelMapper.map(tituloRepository.save(titulo), TituloDTO.class);
     }
 
     public List<TituloDTO> index() {
@@ -50,7 +43,25 @@ public class TituloService {
     public TituloDTO show(Long id) {
         return tituloRepository.findById(id)
                 .map(record -> modelMapper.map(record, TituloDTO.class))
-                .orElseThrow(() -> new TituloNotFoundException(id));
+                .orElseThrow(TituloNotFoundException::new);
+    }
+
+    public List<Titulo> showAtor(Long id) {
+        List<Titulo> titulo =  tituloRepository.findByAtoresId(id);
+        if (titulo == null ) {
+            throw new TituloNotFoundException();
+        }
+
+        return titulo;
+    }
+
+    public List<Titulo> show(String categoria) {
+        List<Titulo> titulo =  tituloRepository.findByCategoria(categoria);
+        if (titulo == null ) {
+            throw new TituloNotFoundException();
+        }
+
+        return titulo;
     }
 
     public TituloDTO update(Titulo titulo) {
@@ -65,7 +76,7 @@ public class TituloService {
                     record.setClasse(titulo.getClasse());
                     record.setUpdatedAt(titulo.getUpdatedAt());
                     return modelMapper.map(tituloRepository.save(record), TituloDTO.class);
-                }).orElseThrow(() -> new TituloNotFoundException(titulo.getId()));
+                }).orElseThrow(TituloNotFoundException::new);
     }
 
     public void delete(Long id) {
@@ -73,7 +84,7 @@ public class TituloService {
             tituloRepository.deleteById(id);
         }
         else {
-            throw new TituloNotFoundException(id);
+            throw new TituloNotFoundException();
         }
     }
 

@@ -30,6 +30,11 @@ public class ItemController {
         return ResponseEntity.ok(itemService.show(id));
     }
 
+    @GetMapping("numSerie/{numSerie}")
+    public ResponseEntity<?> show(@PathVariable String numSerie) {
+        return ResponseEntity.ok(itemService.show(numSerie));
+    }
+
     @PutMapping("{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @DTO(ItemDTO.class) Item item) {
         item.setId(id);

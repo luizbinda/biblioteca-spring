@@ -3,6 +3,7 @@ package br.com.ledscolatina.backend.service;
 import br.com.ledscolatina.backend.except.custom.ItemNotFoundException;
 import br.com.ledscolatina.backend.model.Item;
 import br.com.ledscolatina.backend.model.dto.Item.ItemDTO;
+import br.com.ledscolatina.backend.model.dto.Item.ItemLocacaoDTO;
 import br.com.ledscolatina.backend.repository.ItemRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,16 @@ public class ItemService {
     public ItemDTO show(Long id) {
         return itemRepository.findById(id)
                 .map(record -> modelMapper.map(record, ItemDTO.class))
-                .orElseThrow(() -> new ItemNotFoundException(id));
+                .orElseThrow(ItemNotFoundException::new);
+    }
+
+    public ItemLocacaoDTO show(String numSerie) {
+        Item item =  itemRepository.findByNumSerie(numSerie);
+        if (item == null ) {
+            throw new ItemNotFoundException();
+        }
+
+        return modelMapper.map(item, ItemLocacaoDTO.class);
     }
 
     public ItemDTO update(Item item) {
@@ -45,7 +55,7 @@ public class ItemService {
                     record.setTipo(item.getTipo());
                     record.setUpdatedAt(item.getUpdatedAt());
                     return modelMapper.map(itemRepository.save(record), ItemDTO.class);
-                }).orElseThrow(() -> new ItemNotFoundException(item.getId()));
+                }).orElseThrow(ItemNotFoundException::new);
     }
 
     public void delete(Long id) {
@@ -53,7 +63,7 @@ public class ItemService {
             itemRepository.deleteById(id);
         }
         else {
-            throw new ItemNotFoundException(id);
+            throw new ItemNotFoundException();
         }
     }
 
