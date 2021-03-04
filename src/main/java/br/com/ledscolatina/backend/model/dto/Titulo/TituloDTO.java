@@ -22,5 +22,4 @@ public class TituloDTO {
     private DiretorDTO diretor;
     private ClasseDTO classe;
     private List<AtorDTO> atores;
-    private List<AtorTituloDTO> atores_titulo;
 }

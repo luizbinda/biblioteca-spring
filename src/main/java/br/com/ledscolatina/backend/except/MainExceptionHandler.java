@@ -195,7 +195,7 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
                 ex,
                 new ErrorResponseBody(
                         400,
-                        "Classe vinculado a um titulo",
+                        "Classe vinculada a um titulo",
                         "classe"
                 ),
                 new HttpHeaders(),
