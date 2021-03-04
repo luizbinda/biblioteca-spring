@@ -18,6 +18,4 @@ public class ClienteDTO {
     private Boolean ativo = true;
     private Date data_nascimento;
     private ClienteDTO cliente;
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

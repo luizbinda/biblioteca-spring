@@ -1,5 +1,7 @@
 package br.com.ledscolatina.backend.service;
 
+import br.com.ledscolatina.backend.except.custom.AtorInTituloException;
+import br.com.ledscolatina.backend.except.custom.ClasseInTituloException;
 import br.com.ledscolatina.backend.except.custom.ClasseNotFoundException;
 import br.com.ledscolatina.backend.model.Classe;
 import br.com.ledscolatina.backend.model.dto.classe.ClasseDTO;
@@ -49,7 +51,11 @@ public class ClasseService {
 
     public void delete(Long id) {
         if (classeRepository.findById(id).isPresent()) {
-            classeRepository.deleteById(id);
+            try {
+                classeRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new ClasseInTituloException();
+            }
         }
         else {
             throw new ClasseNotFoundException(id);

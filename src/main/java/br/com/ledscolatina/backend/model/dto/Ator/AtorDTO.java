@@ -10,6 +10,4 @@ import java.time.LocalDateTime;
 public class AtorDTO {
     private Long id;
     private String nome;
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

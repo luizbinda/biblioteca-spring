@@ -19,7 +19,4 @@ public class ItemLocacaoDTO {
     private List<LocacaoDTO> locacao;
     private Date data_aquisicao;
     private String tipo;
-
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

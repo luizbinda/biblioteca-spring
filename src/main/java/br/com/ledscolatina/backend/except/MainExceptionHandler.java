@@ -151,7 +151,7 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
                 new ErrorResponseBody(
                         400,
                         "Cliente inativo no sistema.",
-                        "Cliente"
+                        "cliente"
                 ),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,
@@ -166,7 +166,52 @@ public class MainExceptionHandler extends ResponseEntityExceptionHandler {
                 new ErrorResponseBody(
                         400,
                         ex.getMessage(),
-                        "Cliente"
+                        "cliente"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { AtorInTituloException.class })
+    protected ResponseEntity<Object> handleAtorInTituloException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Ator vinculado a um titulo",
+                        "ator"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { ClasseInTituloException.class })
+    protected ResponseEntity<Object> handleClasseInTituloException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Classe vinculado a um titulo",
+                        "classe"
+                ),
+                new HttpHeaders(),
+                HttpStatus.BAD_REQUEST,
+                request
+        );
+    }
+
+    @ExceptionHandler(value = { DiretorInTituloException.class })
+    protected ResponseEntity<Object> handleDiretorInTituloException(RuntimeException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                new ErrorResponseBody(
+                        400,
+                        "Diretor vinculado a um titulo",
+                        "diretor"
                 ),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST,

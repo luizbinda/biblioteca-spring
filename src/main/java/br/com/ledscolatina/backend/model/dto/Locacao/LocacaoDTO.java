@@ -20,6 +20,4 @@ public class LocacaoDTO {
     private LocalDateTime data_locacao;
     private LocalDateTime data_devolucao_prevista;
     private LocalDateTime data_devolucao_efetiva;
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

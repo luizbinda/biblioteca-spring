@@ -1,7 +1,5 @@
 package br.com.ledscolatina.backend.controller;
-import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.Titulo;
-import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
 import br.com.ledscolatina.backend.model.dto.Titulo.TituloDTO;
 import br.com.ledscolatina.backend.service.TituloService;
 import br.com.ledscolatina.backend.util.DTO;

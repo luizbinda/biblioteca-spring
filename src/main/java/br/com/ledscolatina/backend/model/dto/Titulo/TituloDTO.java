@@ -23,6 +23,4 @@ public class TituloDTO {
     private ClasseDTO classe;
     private List<AtorDTO> atores;
     private List<AtorTituloDTO> atores_titulo;
-    private final LocalDateTime createdAt = LocalDateTime.now();
-    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

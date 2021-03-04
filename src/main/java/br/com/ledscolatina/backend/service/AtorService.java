@@ -1,5 +1,6 @@
 package br.com.ledscolatina.backend.service;
 
+import br.com.ledscolatina.backend.except.custom.AtorInTituloException;
 import br.com.ledscolatina.backend.except.custom.AtorNotFoundException;
 import br.com.ledscolatina.backend.model.Ator;
 import br.com.ledscolatina.backend.model.dto.Ator.AtorDTO;
@@ -34,7 +35,7 @@ public class AtorService {
     public AtorDTO show(Long id) {
         return atorRepository.findById(id)
                 .map(record -> modelMapper.map(record, AtorDTO.class))
-                .orElseThrow(() -> new AtorNotFoundException(id));
+                .orElseThrow(AtorNotFoundException::new);
     }
 
     public AtorDTO update(Ator ator) {
@@ -43,15 +44,19 @@ public class AtorService {
                     record.setNome(ator.getNome());
                     record.setUpdatedAt(ator.getUpdatedAt());
                     return modelMapper.map(atorRepository.save(record), AtorDTO.class);
-                }).orElseThrow(() -> new AtorNotFoundException(ator.getId()));
+                }).orElseThrow(AtorNotFoundException::new);
     }
 
     public void delete(Long id) {
         if (atorRepository.findById(id).isPresent()) {
-            atorRepository.deleteById(id);
+            try {
+                atorRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new AtorInTituloException();
+            }
         }
         else {
-            throw new AtorNotFoundException(id);
+            throw new AtorNotFoundException();
         }
     }
 

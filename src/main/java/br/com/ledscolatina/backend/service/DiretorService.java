@@ -1,5 +1,7 @@
 package br.com.ledscolatina.backend.service;
 
+import br.com.ledscolatina.backend.except.custom.ClasseInTituloException;
+import br.com.ledscolatina.backend.except.custom.DiretorInTituloException;
 import br.com.ledscolatina.backend.except.custom.DiretorNotFoundException;
 import br.com.ledscolatina.backend.model.Diretor;
 import br.com.ledscolatina.backend.model.dto.Diretor.DiretorDTO;
@@ -47,7 +49,11 @@ public class DiretorService {
 
     public void delete(Long id) {
         if (diretorRepository.findById(id).isPresent()) {
-            diretorRepository.deleteById(id);
+            try {
+                diretorRepository.deleteById(id);
+            } catch (Exception e) {
+                throw new DiretorInTituloException();
+            }
         }
         else {
             throw new DiretorNotFoundException(id);
